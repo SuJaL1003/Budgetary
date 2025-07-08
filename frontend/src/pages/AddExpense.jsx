@@ -29,7 +29,7 @@ const AddExpense = () => {
 
     try {
       await axios.post(
-        "/api/transactions/create",
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/create`,
         {
           type: "expense",
           amount,

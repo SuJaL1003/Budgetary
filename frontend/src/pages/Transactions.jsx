@@ -15,7 +15,7 @@ const Transactions = () => {
     const fetchTransactions = async () => {
       try {
         const res = await axios.post(
-          "/api/transactions/get",
+          `${import.meta.env.VITE_API_BASE_URL}/api/transactions/get`,
           {},
           {
             headers: {

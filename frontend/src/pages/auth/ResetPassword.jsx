@@ -18,9 +18,12 @@ const ResetPassword = () => {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post(`/api/auth/reset-password/${token}`, {
-        password: password,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/reset-password/${token}`,
+        {
+          password: password,
+        }
+      );
       setMessage(data.message);
       setTimeout(() => navigate("/login"), 3000);
     } catch (err) {

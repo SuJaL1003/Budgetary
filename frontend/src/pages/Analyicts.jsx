@@ -38,7 +38,9 @@ const Analyicts = () => {
   const fetchAnalytics = async () => {
     try {
       const res = await axios.get(
-        `/api/analytics/monthly?month=${month}&year=${year}`,
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/api/analytics/monthly?month=${month}&year=${year}`,
         {
           headers: {
             Authorization: `Bearer ${auth?.token}`,

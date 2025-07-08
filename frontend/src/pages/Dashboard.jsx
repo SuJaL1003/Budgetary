@@ -18,9 +18,12 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const { data } = await axios.get("/api/transactions/stats", {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/stats`,
+        {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        }
+      );
       const incomeVal = data.income || 0;
       const expenseVal = data.expenses || 0;
       setIncome(incomeVal);
@@ -36,9 +39,12 @@ const Dashboard = () => {
   };
   const fetchRecentTransactions = async () => {
     try {
-      const { data } = await axios.get("/api/transactions/get", {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/get`,
+        {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        }
+      );
       if (data?.success) {
         const filtered = data.data
           .filter(

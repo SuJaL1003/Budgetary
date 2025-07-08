@@ -11,7 +11,10 @@ const ForgotPassword = () => {
     setMessage("");
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/auth/forgot-password", { email });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/forgot-password`,
+        { email }
+      );
       setMessage(data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || "Something went wrong.");

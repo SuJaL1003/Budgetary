@@ -36,11 +36,15 @@ const AddIncome = () => {
     }
 
     try {
-      const res = await axios.post("/api/transactions/create", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/create`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       toast.success("Income added successfully ✅");
       // Clear form

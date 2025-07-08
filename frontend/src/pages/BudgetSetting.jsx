@@ -44,9 +44,12 @@ const BudgetSettings = () => {
 
   const fetchStats = async () => {
     try {
-      const { data } = await axios.get("/api/transactions/stats", {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/stats`,
+        {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        }
+      );
       setIncome(data.income || 0);
     } catch (err) {
       console.error("Failed to load stats:", err);
@@ -55,9 +58,12 @@ const BudgetSettings = () => {
 
   const fetchBudgets = async () => {
     try {
-      const res = await axios.get("/api/budget/get", {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/budget/get`,
+        {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        }
+      );
       if (res.data.success) {
         const mapped = res.data.data.map((b) => ({
           category: b.category,
@@ -87,7 +93,7 @@ const BudgetSettings = () => {
     }
     try {
       const res = await axios.post(
-        "/api/budget/set",
+        `${import.meta.env.VITE_API_BASE_URL}/api/budget/set`,
         {
           category: selectedCategory,
           catAmount: Number(categoryAmount),
