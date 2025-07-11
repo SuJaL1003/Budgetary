@@ -13,11 +13,15 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
-        username,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        // `${import.meta.env.VITE_API_BASE_URL}
+        `/api/auth/register`,
+        {
+          username,
+          email,
+          password,
+        }
+      );
       if (res.data.success) {
         toast.success(res.data.message);
         navigate("/login");

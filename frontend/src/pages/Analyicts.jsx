@@ -1,3 +1,5 @@
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -66,6 +68,43 @@ const Analyicts = () => {
       value,
     })
   );
+
+  const handleDownload = () => {
+    const data = Object.entries(analytics.categoryData).map(
+      ([category, amount]) => ({
+        Category: category,
+        Amount: amount,
+      })
+    );
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Category Expenses");
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    saveAs(
+      new Blob([excelBuffer], { type: "application/octet-stream" }),
+      `Expense_Split_${month}_${year}.xlsx`
+    );
+  };
+
+  const getFinancialMood = () => {
+    const percentSaved = (analytics.net / analytics.totalIncome) * 100;
+
+    if (percentSaved >= 50) {
+      return { emoji: "😄", message: "Great job! You're saving well!" };
+    } else if (percentSaved >= 20) {
+      return { emoji: "😐", message: "Decent savings. Keep improving!" };
+    } else {
+      return { emoji: "😟", message: "Warning: You're spending too much!" };
+    }
+  };
+
+  const mood = getFinancialMood();
+
   return (
     <DashboardLayout>
       <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
@@ -119,13 +158,21 @@ const Analyicts = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="w-full md:w-auto mt-2 md:mt-6">
-          <button
-            onClick={fetchAnalytics}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl shadow-md transition"
-          >
-            Fetch Analytics
-          </button>
+        <div className="w-full md:w-auto mt-3 md:mt-6">
+          <div className="flex space-x-4">
+            <button
+              onClick={fetchAnalytics}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl shadow-md transition"
+            >
+              Fetch Analytics
+            </button>
+            <button
+              onClick={handleDownload}
+              className="px-5 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700 transition"
+            >
+              Export
+            </button>
+          </div>
         </div>
       </div>
 
@@ -152,6 +199,13 @@ const Analyicts = () => {
             <h4 className="text-lg font-medium">Net Savings</h4>
             <p className="text-xl font-bold text-blue-700">₹{analytics.net}</p>
           </div>
+        </div>
+
+        <div className="flex items-center justify-center mt-4 mb-8 flex-col">
+          <div className="text-5xl">{mood.emoji}</div>
+          <p className="text-lg font-medium text-gray-700 mt-2">
+            {mood.message}
+          </p>
         </div>
 
         {/* Pie Chart: Expense by Category */}
