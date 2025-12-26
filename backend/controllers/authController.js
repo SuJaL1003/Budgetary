@@ -58,7 +58,7 @@ const registerUser = async (req, res) => {
       service: "gmail",
       auth: {
         user: "susujal4@gmail.com",
-        pass: "rpqtiqmgtdblacvb",
+        pass: "",
       },
     });
 
