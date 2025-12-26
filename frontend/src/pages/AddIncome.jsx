@@ -22,9 +22,14 @@ const AddIncome = () => {
       return toast.error("Please fill all required fields");
     }
 
+    const numAmount = Number(amount);
+    if (numAmount <= 0) {
+      return toast.error("Amount must be greater than 0");
+    }
+
     const payload = {
       type: "income",
-      amount,
+      amount: numAmount,
       category,
       date,
       note,
@@ -34,6 +39,8 @@ const AddIncome = () => {
     if (isRecurring && frequency) {
       payload.frequency = frequency;
     }
+
+    console.log("Sending Income Payload:", payload);
 
     try {
       const res = await axios.post(
@@ -56,7 +63,9 @@ const AddIncome = () => {
       setFrequency("");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to add income");
+      const errorMessage =
+        err.response?.data?.message || "Failed to add income";
+      toast.error(errorMessage);
     }
   };
 

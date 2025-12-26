@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budgetary ER Diagram</title>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+  </head>
+  <body>
+    <h1>Entity-Relationship Diagram for Budgetary Project</h1>
+    <p>
+      This ER diagram represents the database schema for the Budgetary personal
+      finance application.
+    </p>
+
+    <h2>Key Relationships:</h2>
+    <ul>
+      <li>A User can have multiple Transactions (income/expense records)</li>
+      <li>
+        A User can set multiple Budgets for different categories and months
+      </li>
+      <li>A User can define multiple Categories for organizing transactions</li>
+      <li>
+        Transactions and Budgets reference Categories by name (string), while
+        Categories are user-specific
+      </li>
+    </ul>
+
+    <h2>Entities and Attributes:</h2>
+
+    <div class="mermaid">
+      erDiagram User ||--o{ Transaction : "manages" User ||--o{ Budget : "sets"
+      User ||--o{ Category : "defines" User { ObjectId _id PK string username
+      "User's display name" string email UK "Unique email address" boolean
+      isVerified "Email verification status" string verificationToken "Token for
+      email verification" string resetPasswordToken "Token for password reset"
+      date resetPasswordExpires "Expiration date for reset token" string
+      password "Hashed password" string role "admin|user (default: user)" date
+      createdAt "Auto-generated timestamp" date updatedAt "Auto-generated
+      timestamp" } Transaction { ObjectId _id PK ObjectId user FK "Reference to
+      User" string type "income|expense (required)" string category "Category
+      name (required)" number amount "Transaction amount (required)" date date
+      "Transaction date (default: now)" string note "Optional description"
+      boolean isRecurring "Is this a recurring transaction?" string frequency
+      "daily|weekly|monthly|null" date nextOccurrence "Next scheduled date for
+      recurring" date createdAt "Auto-generated timestamp" date updatedAt
+      "Auto-generated timestamp" } Budget { ObjectId _id PK ObjectId user FK
+      "Reference to User" number catAmount "Budgeted amount for category
+      (required)" string month "Budget month (e.g., '2024-01') (required)"
+      number spent "Amount spent so far (default: 0)" boolean _notified "Has
+      budget limit notification been sent?" string category "Category name
+      (required)" date createdAt "Auto-generated timestamp" date updatedAt
+      "Auto-generated timestamp" } Category { ObjectId _id PK string category
+      "Category name (required, trimmed)" ObjectId user FK "Reference to User"
+      string type "income|expense (required)" date createdAt "Auto-generated
+      timestamp" date updatedAt "Auto-generated timestamp" }
+    </div>
+
+    <h2>Notes:</h2>
+    <ul>
+      <li>All entities use MongoDB ObjectId as primary keys</li>
+      <li>Timestamps are automatically managed by Mongoose</li>
+      <li>Foreign keys are MongoDB references to other documents</li>
+      <li>
+        Categories are user-specific and can be either income or expense types
+      </li>
+      <li>
+        Transactions can be one-time or recurring with specified frequencies
+      </li>
+      <li>Budgets track spending against monthly category limits</li>
+    </ul>
+  </body>
+</html>

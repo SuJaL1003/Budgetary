@@ -159,9 +159,9 @@ module.exports = { getStats };
 // Read
 const getTransaction = async (req, res) => {
   try {
-    const transactions = await Transaction.find({ user: req.user.userId })
-      // .populate("category", "category")
-      .sort({ date: -1 });
+    const transactions = await Transaction.find({ user: req.user.userId }).sort(
+      { date: -1 }
+    );
 
     res.status(200).json({ success: true, data: transactions });
   } catch (err) {

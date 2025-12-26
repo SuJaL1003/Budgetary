@@ -37,47 +37,47 @@ const Transactions = () => {
   }, [token]);
 
   return (
-    // <DashboardLayout>
-    <div className="bg-white rounded-xl shadow p-6">
-      <h2 className="text-2xl font-semibold text-emerald-700 mb-4">
-        Your Transactions
-      </h2>
-      {loading ? (
-        <p className="text-gray-500">Loading...</p>
-      ) : transactions.length === 0 ? (
-        <p className="text-gray-600">No transactions found.</p>
-      ) : (
-        <table className="w-full table-auto border">
-          <thead>
-            <tr className="bg-emerald-100 text-emerald-800">
-              <th className="p-2 text-left">Type</th>
-              <th className="p-2 text-left">Category</th>
-              <th className="p-2 text-left">Amount</th>
-              <th className="p-2 text-left">Date</th>
-              <th className="p-2 text-left">Recurring</th>
-              <th className="p-2 text-left">Note</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((txn) => (
-              <tr key={txn._id} className="border-t hover:bg-emerald-50">
-                <td className="p-2 capitalize">{txn.type}</td>
-                <td className="p-2">{txn.category}</td>
-                <td className="p-2">₹{txn.amount}</td>
-                <td className="p-2">
-                  {new Date(txn.date).toLocaleDateString()}
-                </td>
-                <td className="p-2">
-                  {txn.isRecurring ? txn.frequency : "No"}
-                </td>
-                <td className="p-2">{txn.note}</td>
+    <DashboardLayout>
+      <div className="bg-white rounded-xl shadow p-6">
+        <h2 className="text-2xl font-semibold text-emerald-700 mb-4">
+          Your Transactions
+        </h2>
+        {loading ? (
+          <p className="text-gray-500">Loading...</p>
+        ) : transactions.length === 0 ? (
+          <p className="text-gray-600">No transactions found.</p>
+        ) : (
+          <table className="w-full table-auto border">
+            <thead>
+              <tr className="bg-emerald-100 text-emerald-800">
+                <th className="p-2 text-left">Type</th>
+                <th className="p-2 text-left">Category</th>
+                <th className="p-2 text-left">Amount</th>
+                <th className="p-2 text-left">Date</th>
+                <th className="p-2 text-left">Recurring</th>
+                <th className="p-2 text-left">Note</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-    // </DashboardLayout>
+            </thead>
+            <tbody>
+              {transactions.map((txn) => (
+                <tr key={txn._id} className="border-t hover:bg-emerald-50">
+                  <td className="p-2 capitalize">{txn.type}</td>
+                  <td className="p-2">{txn.category}</td>
+                  <td className="p-2">₹{txn.amount}</td>
+                  <td className="p-2">
+                    {new Date(txn.date).toLocaleDateString()}
+                  </td>
+                  <td className="p-2">
+                    {txn.isRecurring ? txn.frequency : "No"}
+                  </td>
+                  <td className="p-2">{txn.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </DashboardLayout>
   );
 };
 
