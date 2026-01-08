@@ -1,7 +1,7 @@
 💰 Budgetary
 
 Budgetary is a personal finance tracking application built with the MERN stack, designed to help users manage expenses, track budgets, and understand spending patterns through clean APIs and structured data.
-
+_____________________________________________________________________________________________________________________________________________________________________________
 🚀 Features
 
 Secure user authentication (JWT-based)
@@ -15,7 +15,7 @@ Budget limits and tracking
 API-driven backend architecture
 
 Clean and scalable database design
-
+_____________________________________________________________________________________________________________________________________________________________________________
 🛠 Tech Stack
 
 Frontend
@@ -41,7 +41,7 @@ Tools
 Git & GitHub
 
 Postman
-
+_____________________________________________________________________________________________________________________________________________________________________________
 🧠 Project Focus
 
 Backend-first development approach
@@ -51,7 +51,7 @@ RESTful API design
 Data validation and structured schemas
 
 Scalable and maintainable codebase
-
+_____________________________________________________________________________________________________________________________________________________________________________
 📁 API Overview
 
 POST /api/auth/register – User registration
@@ -65,7 +65,7 @@ GET /api/expenses – Fetch user expenses
 PUT /api/expenses/:id – Update expense
 
 DELETE /api/expenses/:id – Delete expense
-
+_____________________________________________________________________________________________________________________________________________________________________________
 ⚙️ Installation & Setup
 git clone https://github.com/your-username/budgetary.git
 cd budgetary
@@ -82,7 +82,7 @@ JWT_SECRET=your_secret_key
 Run the project:
 
 npm run dev
-
+_____________________________________________________________________________________________________________________________________________________________________________
 📌 Future Improvements
 
 Expense analytics & charts
